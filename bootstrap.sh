@@ -2,13 +2,15 @@
 echo "1. Spinning up Kind cluster..."
 kind create cluster --config cluster.yml
 
-echo "2. Deploying MySQL Database Resources..."
+echo "2. Deploying Namespaces..."
+kubectl apply -f .infrastructure/namespace.yml
+
+echo "3. Deploying MySQL Database Resources..."
 kubectl apply -f .infrastructure/mysql/mysql-secret.yml
 kubectl apply -f .infrastructure/mysql/mysql-config.yml
 kubectl apply -f .infrastructure/mysql/statefulSet.yml
 
-echo "3. Deploying Application Resources..."
-kubectl apply -f .infrastructure/namespace.yml
+echo "4. Deploying Application Resources..."
 kubectl apply -f .infrastructure/app-db-secret.yml
 kubectl apply -f .infrastructure/configMap.yml
 kubectl apply -f .infrastructure/secret.yml
